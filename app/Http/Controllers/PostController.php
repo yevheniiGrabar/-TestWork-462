@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostUpdateRequest;
-use App\Http\Requests\PostStoreRequest;
 use App\Repositories\PostRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Request;
 
 class PostController extends Controller
 {
@@ -21,11 +20,12 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $posts = $this->postRepository->getPosts();
+        $posts = $this->postRepository->getPosts($request);
 
         return new JsonResponse($posts);
     }
