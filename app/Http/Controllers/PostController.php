@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostUpdateRequest;
 use App\Repositories\PostRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -20,12 +22,11 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        $posts = $this->postRepository->getPosts($request);
+        $posts = $this->postRepository->getPosts();
 
         return new JsonResponse($posts);
     }
@@ -34,12 +35,22 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param PostStoreRequest $request
+     * @param Request $request
      * @return JsonResponse
      */
-    public function store(PostStoreRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
-        $newPost = $this->postRepository->createPost($request);
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'title'       => 'required|min:3|max:100',
+            'description' => 'required|min:3|max:150',
+            'content'     => 'required|min:3|max:255',
+            'status'      =>  'boolean',
+        ]);
+        if($validator->fails()){
+            return new JsonResponse(['Validation Error.', $validator->errors()]);
+        }
+        $newPost = $this->postRepository->createPost($input);
 
         return new JsonResponse($newPost);
     }

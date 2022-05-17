@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $content
  * @property integer $views
  * @property boolean $status
- * @property string $image
  *
  */
 class Post extends Model
@@ -27,7 +26,6 @@ class Post extends Model
         'status',
         'content',
         'views',
-        'image',
     ];
 
     /**

@@ -83,26 +83,17 @@ class PostRepository
     }
 
     /**
-     * @param PostStoreRequest $postStoreRequest
+     *
+     * @param $input
      * @return Post
      */
-    public function createPost(PostStoreRequest $postStoreRequest): Post
+    public function createPost($input): Post
     {
-        $post = new Post();
-        $categoryIds = $postStoreRequest->get('category');
-        $post->title = $postStoreRequest->get('title');
-        $post->description = $postStoreRequest->get('description');
-        $post->content = $postStoreRequest->get('content');
+        $categoryIds = $input['category_id'];
+        $post = Post::create($input);
         $post->categories()->attach($categoryIds);
-
-        if ($postStoreRequest->hasFile('image')) {
-            $file = $postStoreRequest->file('image');
-            $imageFileName = $file->getClientOriginalName();
-            $path = public_path() . 'uploads/images';
-            $file->move($path, $imageFileName);
-            $post->image = $postStoreRequest->file('image');
-            $post->save();
-        }
+        $post->save();
+//        }
 
         return $post;
     }

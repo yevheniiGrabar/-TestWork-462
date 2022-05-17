@@ -19,8 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->boolean('status');
             $table->longText('content');
-            $table->integer('views');
-            $table->string('image');
+            $table->integer('views')->nullable();
             $table->timestamps();
         });
     }
