@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\MeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,4 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('posts', PostController::class);
+Route::post('register', [RegisterController::class, 'register']);
+Route::post('login', ['as' => 'login', 'uses' => 'App\Http\Controllers\Auth\LoginController@login']);
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('/me', [MeController::class, 'me']);
+    Route::resource('posts', PostController::class);
+});
