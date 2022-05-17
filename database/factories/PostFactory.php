@@ -22,7 +22,6 @@ class PostFactory extends Factory
             'status' => $this->faker->boolean,
             'content' => $this->faker->text,
             'views' => $this->faker->numberBetween('1', '1000'),
-            'image' => $this->faker->imageUrl('1024', '768'),
         ];
     }
 }
