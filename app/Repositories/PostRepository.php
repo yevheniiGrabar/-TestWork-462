@@ -9,7 +9,6 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Symfony\Component\HttpFoundation\Request;
 
 class PostRepository
 {
@@ -22,10 +21,10 @@ class PostRepository
     }
 
     /**
-     * @param $request
      * @return LengthAwarePaginator
+     * @noinspection PhpRedundantOptionalArgumentInspection
      */
-    public function getPosts($request): LengthAwarePaginator
+    public function getPosts(): LengthAwarePaginator
     {
         $post = $this->post->newQuery();
         $post->select('*');
@@ -104,7 +103,7 @@ class PostRepository
             $post->image = $postStoreRequest->file('image');
             $post->save();
         }
-        dd();
+
         return $post;
     }
 
@@ -114,8 +113,6 @@ class PostRepository
      */
     public function getPostById(int $id): Model|Collection|Builder|array|null
     {
-        $post = Post::query()->find($id);
-        dd($post->categories);
         return Post::query()->with('categories')->find($id);
     }
 
