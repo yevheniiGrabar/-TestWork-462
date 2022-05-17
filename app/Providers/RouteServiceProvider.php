@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
 
+    /** @var string */
     protected string $namespace = 'App\\Http\\Controllers';
 
     /**
