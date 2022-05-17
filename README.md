@@ -18,7 +18,6 @@
 
 #### Available routes & methods
 
-```bash
 http://localhost/api/register  POST create new user
 http://localhost/api/login POST login new user login and getting a new token to visit other pages
 http://localhost/api/me POST dysplay current user
@@ -27,7 +26,7 @@ http://localhost/api/posts  POST create new Post
 http://localhost/api/posts/{post} GET show specific post
 http://localhost/api/posts/{post} PUT update Post
 http://localhost/api/posts/{post} DELETE delete Post
-```
+
 
 
 
