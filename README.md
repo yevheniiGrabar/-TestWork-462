@@ -8,7 +8,7 @@
 3) set DB_USERNAME
 4) set DB_PASSWORD
 5) php artisan config:clear
-6)php artisan route:cache
+6) php artisan route:cache
 7) composer install
 8) php artisan migrate 
 9) php artisan db:seed
@@ -17,6 +17,7 @@
 ```
 
 #### Available routes & methods
+
 ```bash
 http://localhost/api/register  POST
 http://localhost/api/login POST

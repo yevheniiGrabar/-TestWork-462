@@ -15,9 +15,9 @@ class CategoryPostFactory extends Factory
 
     public function definition()
     {
-       DB::table('category_post')->insert([
-           'category_id' => Category::query()->select('id')->orderByRaw("RAND()")->first()->id,
-           'post_id' => Post::query()->select('id')->orderByRaw("RAND()")->first()->idm
-       ]);
+        DB::table('category_post')->insert([
+            'category_id' => Category::query()->select('id')->orderByRaw("RAND()")->first()->id,
+            'post_id' => Post::query()->select('id')->orderByRaw("RAND()")->first()->idm
+        ]);
     }
 }

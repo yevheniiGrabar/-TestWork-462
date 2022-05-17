@@ -42,12 +42,12 @@ class PostController extends Controller
     {
         $input = $request->all();
         $validator = Validator::make($input, [
-            'title'       => 'required|min:3|max:100',
+            'title' => 'required|min:3|max:100',
             'description' => 'required|min:3|max:150',
-            'content'     => 'required|min:3|max:255',
-            'status'      =>  'boolean',
+            'content' => 'required|min:3|max:255',
+            'status' => 'boolean',
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return new JsonResponse(['Validation Error.', $validator->errors()]);
         }
         $newPost = $this->postRepository->createPost($input);
@@ -58,12 +58,12 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return JsonResponse
      */
     public function show(int $id): JsonResponse
     {
-         $post = $this->postRepository->getPostById($id);
+        $post = $this->postRepository->getPostById($id);
 
         return new JsonResponse($post);
     }
@@ -80,9 +80,9 @@ class PostController extends Controller
     {
         $input = $request->all();
         $validator = Validator::make($input, [
-            'title'       => 'required|min:3|max:100',
+            'title' => 'required|min:3|max:100',
             'description' => 'required|min:3|max:150',
-            'content'     => 'required|min:3|max:255',
+            'content' => 'required|min:3|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -96,7 +96,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return JsonResponse
      */
     public function destroy(int $id): JsonResponse

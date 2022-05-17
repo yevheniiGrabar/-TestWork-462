@@ -2,14 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Http\Requests\PostStoreRequest;
-use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Request;
 
 class PostRepository
 {
@@ -29,8 +26,6 @@ class PostRepository
     {
         $post = $this->post->newQuery();
         $post->select('*');
-
-//        $post->whereRaw("1 = 1");
 
         //filters by id
         if (request()->filled('id')) {
@@ -87,6 +82,7 @@ class PostRepository
      *
      * @param $input
      * @return Post
+     * @noinspection PhpUndefinedMethodInspection
      */
     public function createPost($input): Post
     {
@@ -94,7 +90,6 @@ class PostRepository
         $post = Post::create($input);
         $post->categories()->attach($categoryIds);
         $post->save();
-//        }
 
         return $post;
     }
@@ -108,9 +103,9 @@ class PostRepository
         return Post::query()->with('categories')->find($id);
     }
 
+    /** @noinspection PhpMissingReturnTypeInspection */
     public function updatePost($input, $id)
     {
-
         $post = Post::query()->find($id);
         $post = $post->update($input);
 

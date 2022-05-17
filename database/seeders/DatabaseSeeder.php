@@ -16,11 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         Post::factory(100)->create();
-         Category::factory(5)->create();
+        Post::factory(100)->create();
+        Category::factory(5)->create();
 
-         $this->call([
-             CategoryPostSeeder::class
+        $this->call([
+            CategoryPostSeeder::class
         ]);
     }
 }

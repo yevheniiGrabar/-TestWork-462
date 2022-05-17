@@ -21,11 +21,11 @@ class RegisterController extends Controller
     {
         $rules = [
             'name' => 'unique:users|required',
-            'email'    => 'unique:users|required',
+            'email' => 'unique:users|required',
             'password' => 'required',
         ];
 
-        $input     = $request->only('name', 'email','password');
+        $input = $request->only('name', 'email', 'password');
         $validator = Validator::make($input, $rules);
 
         if ($validator->fails()) {
