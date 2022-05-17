@@ -9,6 +9,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
 
 class PostRepository
 {
@@ -107,17 +108,11 @@ class PostRepository
         return Post::query()->with('categories')->find($id);
     }
 
-    /**
-     * @param PostUpdateRequest $postUpdateRequest
-     * @param $id
-     * @return Builder|Builder[]|Collection|Model|null
-     */
-    public function updatePost(PostUpdateRequest $postUpdateRequest, $id): Model|Collection|Builder|array|null
+    public function updatePost($input, $id)
     {
 
         $post = Post::query()->find($id);
-        $post->update($postUpdateRequest->validated());
-
+        $post = $post->update($input);
 
         return $post;
     }

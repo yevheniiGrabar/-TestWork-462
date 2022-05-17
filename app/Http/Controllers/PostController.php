@@ -72,17 +72,23 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param PostUpdateRequest $request
+     * @param Request $request
      * @param int $id
      * @return JsonResponse
      */
-    public function update(PostUpdateRequest $request, int $id): JsonResponse
+    public function update(Request $request, int $id): JsonResponse
     {
-        $post = $this->postRepository->updatePost($request, $id);
+        $input = $request->all();
+        $validator = Validator::make($input, [
+            'title'       => 'required|min:3|max:100',
+            'description' => 'required|min:3|max:150',
+            'content'     => 'required|min:3|max:255',
+        ]);
 
-        if (!$post) {
-            return new JsonResponse(['errors' => 'Something wrong'], 422);
+        if ($validator->fails()) {
+            return new JsonResponse(['Validation Error.', $validator->errors()]);
         }
+        $post = $this->postRepository->updatePost($input, $id);
 
         return new JsonResponse($post);
     }
